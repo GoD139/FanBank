@@ -1,29 +1,30 @@
 
 
 
-.fb_owes
-{
-  margin:10px; 
-  padding:0;
+
+
+.FB-number-selector{
+  
 }
 
-.fb_owes p
-{
-  margin:0;
+.fb_discount_text{
+  font-size: 26px;
+  margin: 7px;
+  font-weight: 500;
+  color: #595959;
 }
 
 
-
-.fb_contact
-{
-  padding:10px; 
+.fb_balance{
+  margin: 0 0 10px 7px;
+  font-size: 18px;
+  color: #595959;
 }
 
-.fb_contact h4{
+
+.fb_balance_number{
   font-weight: bold;
-  margin:0 0 5px 0;
+  color:#50ad90;
 }
 
-.fb_contact p{
-  margin:0;
-}
+

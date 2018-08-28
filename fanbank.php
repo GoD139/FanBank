@@ -41,7 +41,7 @@ class Fanbank
   
   function __construct()
   {
-  
+    add_action( 'wp_enqueue_scripts', array($this , 'fanbank_style') );
     add_action('admin_head', array( $this ,'admin_register_head'));
   }
   
@@ -57,6 +57,17 @@ class Fanbank
   }
   
   
+  
+  protected function needsToPay_frontend($userid)
+  {
+    $Calcualtion = $this->getUserPaid($userid) - (3300 - $this->getUsersPoints($userid));
+    
+    if($Calcualtion >= 0)
+    {
+      return '<p class="fanbank-need-to-pay">Kan frit bruge: <span class="fanbank-currency-negative">'. $Calcualtion .'</span></p>';
+    }
+    return '<p class="fanbank-need-to-pay">Mangler at betale: <span class="fanbank-currency-negative">'. abs($Calcualtion) .'</span></p>';
+  }
   
   protected function needsToPay($userid)
   {
@@ -109,9 +120,6 @@ class Fanbank
         $spent += $rec->Paid;
       }
     }
-    
-    
-    
     return $spent;
   }
   
@@ -156,10 +164,16 @@ class Fanbank
   }
   
   
+  function fanbank_style()
+  {
+      wp_register_style( 'fb-style', plugins_url( '/assets/css/fanbank_style.css', __FILE__ ), array(), '20120211', 'all' );
+      wp_enqueue_style( 'fb-style' );
+  }
+  
   
   function admin_register_head() {
       $siteurl = get_option('home');
-      $url = $siteurl . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/assets/css/fanbank_style.css';
+      $url = $siteurl . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/assets/css/fanbank_style_admin.css';
       echo "<link rel='stylesheet' type='text/css' href='$url' />\n";
   }
   

@@ -55,18 +55,18 @@ class FB_Purchase extends Fanbank
         <div class="fanpoint_apply_points_text col-md-9 float-left">
 
       <?php
-
+        echo '<img src="'. esc_url( plugins_url( 'assets/img/bank.svg', __DIR__ ) ) .'" class="float-left" height="50px" style="margin-right:10px;">';
 
 
         if(!isset($_SESSION['fb_action']) || $_SESSION['fb_action'] == "remove")
         {
           echo '
-          <p class="fp_discount_text fp_not_active">
-          Betal med FanBank <br> Saldo: <span class="fp_point_color" style="color:#50ad90;">'. $this->getUsersPoints(get_current_user_id()) . '</span> DKK</p>';
+          <p class="fb_discount_text fb_not_active">Betal med FanBank </b> 
+          <p class="fb_balance">Din Saldo: <span class="fb_balance_number">'. $this->getUsersPoints(get_current_user_id()) . '</span> DKK</p>';
         }else if($_SESSION['fb_action'] == "apply"){
           echo '
-          <p class="fp_discount_text fp_not_active">
-          Du betaler med FanBank <br>Din Nye Saldo vil være: <span class="fp_point_color" style="color:#50ad90;">'. ($this->getUsersPoints(get_current_user_id()) - $_SESSION['fb_amount']) . '</span> DKK</p>';
+          <p class="fb_discount_text fb_not_active">Du betaler med FanBank 👍</p>
+          <p class="fb_balance">Din Nye Saldo vil være: <span class="fb_balance_number">'. ($this->getUsersPoints(get_current_user_id()) - $_SESSION['fb_amount']) . '</span> DKK</p>';
         }
 
 
@@ -75,25 +75,29 @@ class FB_Purchase extends Fanbank
       </div>
 
       <div class="fanpoint_apply_points_form col-md-3 float-right">
-
+        
         <form method="post" action="">
 
-          <input type="number" value="<?php echo $this->add_points_to_form_input(); ?>" name="fb_points_amount">
+          <div class="input-group" style="margin-top: 18px;">
+            
+              <?php
+    
+              if(!isset($_SESSION['fb_action']) || $_SESSION['fb_action'] == "remove")
+              {
+                echo '
+                <input type="number" class="FB-number-selector form-control" value="'. $this->add_points_to_form_input() .'" name="fb_points_amount">
+                <div class="input-group-append">
+                  <!--<span class="input-group-text">DKK</span>-->
+                  <input type="submit" class="btn btn-apply-points col-md-12"  value="'. $this->apply_btn_title .'" name="fb_apply_points">
+                </div>';
+              }else if($_SESSION['fb_action'] == "apply"){
+                echo '<input type="submit" class="btn btn-remove-points col-md-12"  value="'. $this->remove_btn_title .' " name="fb_remove_points">';
+              }
+    
+              ?>
+            
+          </div>
           
-          <?php
-
-          if(!isset($_SESSION['fb_action']) || $_SESSION['fb_action'] == "remove")
-          {
-            echo '<input type="submit" class="btn btn-apply-points col-md-12"  value="'. $this->apply_btn_title .'" name="fb_apply_points">';
-          }else if($_SESSION['fb_action'] == "apply"){
-            echo '<input type="submit" class="btn btn-remove-points col-md-12"  value="'. $this->remove_btn_title .' " name="fb_remove_points">';
-          }
-
-          ?>
-
-
-
-
         </form>
 
       </div>
@@ -162,13 +166,9 @@ class FB_Purchase extends Fanbank
           $u_price = $bill_price;
         }
       }
-
-  
     
-    //echo $u_price;
-    //  $woocommerce->cart->add_fee( 'Surcharge', $u_price, true, 'standard' );  
-    $woocommerce->cart->add_fee( __('FanBank', 'woocommerce'), '-'.$u_price, true, 'zero rate');
-      //$woocommerce->cart->add_fee( __('FanPoint Rabat', 'woocommerce'), "-".$u_price );
+    $woocommerce->cart->add_fee( __('FanBank', 'woocommerce'), -$u_price, false);
+
   }
 
 

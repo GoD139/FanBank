@@ -99,7 +99,7 @@ class Display extends Fanbank
   private function badPayers_HTML($UserID, $Username, $FullName, $Owes, $Phone, $Email)
   {
     echo '
-    <div class="col-md-2" style="background:#fff; border-radius:3px; width: 180px;">
+    <div class="bad-payer-box" style="background:#fff; border-radius:3px; width: 180px;">
       <div class="">
         <h3 style="margin: 5px 10px; padding: 10px 10px 0 0;"><a href="user-edit.php?user_id='. $UserID .'">'. $Username .'</a></h3>
         <h4 style="margin:0; padding:0 10px;">'. $FullName .'</h4>
