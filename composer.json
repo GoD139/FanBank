@@ -1,0 +1,8 @@
+{
+    "name": "fanboy/fanbank",
+    "description": "fanbank",
+    "type": "wordpress-plugin",
+    "require": {
+        "php": "^5.3.3 || ^7.0"
+    }
+}
