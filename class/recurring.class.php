@@ -150,18 +150,4 @@ class FB_Recurring extends Fanbank
 
 
 
-  /////////////// testing ////////////////
-
-  public function giveEveryoneRecurringDate()
-  {
-    foreach(get_users() as $Users){
-
-        $this->createDateToRecurre($Users->ID);
-        //if(get_user_meta($Users->ID, 'FP_Recurring'))
-        // echo get_user_meta($Users->ID, 'FP_Recurring');
-        // echo $Users->ID;
-
-    }
-
-  }
 }

@@ -35,7 +35,7 @@ class FB_Purchase extends Fanbank
   function phoen_rewpts_action_woocommerce_before_cal_table() {
 
     global $woocommerce;
-      print_r($woocommerce->cart->get_totals());
+      //print_r($woocommerce->cart->get_totals());
     //$curr=get_woocommerce_currency_symbol();
 
     //$this->getCurrentUsersPoints();
