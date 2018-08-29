@@ -1,6 +1,6 @@
 <?php 
 /*
-Plugin Name: Fan Bank
+Plugin Name: FanBank
 Plugin URI: http://fanboy.dk
 description: Fan Bank for members
 Version: 1.0
