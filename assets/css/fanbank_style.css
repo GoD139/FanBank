@@ -28,3 +28,21 @@
 }
 
 
+
+
+.fanbank-currency-negative{
+  color: #ef4f4f;
+  font-weight: bold;
+}
+.fanbank-currency-positive{
+  color: #4fefa6;
+  font-weight: bold;
+}
+
+.fanbank-need-to-pay{
+  font-size: 18px;
+  font-weight: 200;
+  color: #595959;
+}
+
+

@@ -1,6 +1,6 @@
 <?php 
 /*
-Plugin Name: FanBank
+Plugin Name: Fan Bank
 Plugin URI: http://fanboy.dk
 description: Fan Bank for members
 Version: 1.0
@@ -18,12 +18,14 @@ include_once('class/controller.class.php');
 include_once('class/display.class.php');
 include_once('class/recurring.class.php');
 include_once('class/purchase.class.php');
+include_once('class/shortcode.class.php');
 
 $fanbank = new Fanbank();
 $fb_display = new Display();
 $fb_controller = new FB_Controller();
 $fb_recurring = new FB_Recurring();
 $fb_purchase = new FB_Purchase();
+$fb_shortcodes = new FB_Shortcodes();
 
 
 //check if memeber have that addon else dont give them currency
@@ -64,9 +66,9 @@ class Fanbank
     
     if($Calcualtion >= 0)
     {
-      return '<p class="fanbank-need-to-pay">Kan frit bruge: <span class="fanbank-currency-negative">'. $Calcualtion .'</span></p>';
+      return '<p class="fanbank-need-to-pay">Kan frit bruge: <span class="fanbank-currency-positive">'. $Calcualtion .'</span> DKK</p>';
     }
-    return '<p class="fanbank-need-to-pay">Mangler at betale: <span class="fanbank-currency-negative">'. abs($Calcualtion) .'</span></p>';
+    return '<p class="fanbank-need-to-pay">Mangler at betale tilbage: <span class="fanbank-currency-negative">'. abs($Calcualtion) .'</span> DKK</p>';
   }
   
   protected function needsToPay($userid)
