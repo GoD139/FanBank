@@ -166,6 +166,8 @@ class FB_Purchase extends Fanbank
           $u_price = $bill_price;
         }
       }
+      
+      $u_price = $u_price * .8;
     
     $woocommerce->cart->add_fee( __('FanBank', 'woocommerce'), -$u_price, false);
 

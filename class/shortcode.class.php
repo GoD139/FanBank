@@ -14,6 +14,7 @@ class FB_Shortcodes extends Fanbank
     add_shortcode( 'users_fanbank_months_a_member', array($this, 'fb_display_months_a_member') );
     add_shortcode( 'users_fanbank_need_to_pay', array($this, 'fb_display_need_to_pay') );
     add_shortcode( 'users_fanbank_received', array($this, 'fb_display_user_received') );
+    add_shortcode( 'users_fanbank_is_member', array($this, 'fb_get_user_is_member') );
   }
   
   
@@ -36,6 +37,10 @@ class FB_Shortcodes extends Fanbank
   
   function fb_display_user_received( $atts ) {
       return $this->getUserReceived(get_current_user_id());
+  }
+  
+  function fb_get_user_is_member( $atts ) {
+      return $this->checkIfFanBankMember(get_current_user_id());
   }
   
   
