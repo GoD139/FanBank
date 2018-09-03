@@ -49,9 +49,15 @@ class FB_Recurring extends Fanbank
           
           if(!$this->UserPaidEnough($Users->ID)){
             $this->addToUserRecievedRecord($Users->ID);//add to record of how much user have received
-            $this->givePoints($Users->ID, 550);//give points
+            
+            if($this->getUsersSubscribed() < 10){
+              $this->givePoints($Users->ID, 3300);//give points
+              echo 'gives 3300';
+            }else{
+              $this->givePoints($Users->ID, 550);//give points
+              echo 'gives 550';
+            }
           }
-          
           $this->createDateToRecurre($Users->ID);//give new recurring date
         }
       }
@@ -73,7 +79,8 @@ class FB_Recurring extends Fanbank
     $oldRecord = get_user_meta($userID , 'FanBank_record')[0];
     $oldRecord_reformated = json_decode($oldRecord);
     
-    print_r($oldRecord_reformated);
+
+    //print_r($oldRecord_reformated);
     
     if(isset($oldRecord_reformated)){
       foreach($oldRecord_reformated as $rec)
@@ -95,6 +102,11 @@ class FB_Recurring extends Fanbank
     $oldRecord = get_user_meta($userID , 'FanBank_received')[0];
     $oldRecord_reformated = json_decode($oldRecord);
     
+    $paid = $this->userIsPaidMonthly;
+    if($this->getUsersSubscribed() < 10){
+      $paid = 3300;
+    }
+    
     print_r($oldRecord_reformated);
     
     if(isset($oldRecord_reformated)){
@@ -104,7 +116,7 @@ class FB_Recurring extends Fanbank
       }
     }
     
-    array_push($record, array( 'Date' => date("Y-m-d H:i:s"), 'Paid' => $this->userIsPaidMonthly ));
+    array_push($record, array( 'Date' => date("Y-m-d H:i:s"), 'Paid' => $paid ));
     $record = json_encode($record);
     
     return update_user_meta( $userID, 'FanBank_received', $record);

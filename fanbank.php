@@ -152,8 +152,25 @@ class Fanbank
         $spent += $rec->Paid;
       }
     }
-    
     return $spent;
+  }
+  
+  
+  protected function getUsersSubscribed()
+  {
+    $Users = array();
+    
+    // print_r(get_users());
+    
+    foreach(get_users() as $User){
+      //print_r($User);
+      if($this->checkIfFanBankMember($User->ID)){
+        array_push($Users, $User->ID);
+      }
+    }
+    
+    return sizeof($Users);
+    
   }
   
   
