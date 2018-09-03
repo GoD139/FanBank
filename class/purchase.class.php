@@ -20,6 +20,8 @@ class FB_Purchase extends Fanbank
       add_action( 'woocommerce_cart_calculate_fees', array( $this , 'fb_woo_add_cart_fee' ), 10, 1);
     }
   
+    add_action('woocommerce_thankyou', array($this, 'remove_points'), 10, 1);
+  
     add_action( 'init', array($this, 'init') );
     
   }
@@ -167,6 +169,7 @@ class FB_Purchase extends Fanbank
         }
       }
       
+      $_SESSION['fb_amount'] = $u_price;
       $u_price = $u_price * .8;
     
     $woocommerce->cart->add_fee( __('FanBank', 'woocommerce'), -$u_price, false);
@@ -188,6 +191,21 @@ class FB_Purchase extends Fanbank
       return $CartPrice;
     }
   }
+
+
+  
+    function remove_points() { 
+    
+      if(isset($_SESSION['fb_amount']))
+      {
+        $FanPoints = get_user_meta(get_current_user_id() , 'FanBank');
+      
+        $amount = $this->getUsersPoints(get_current_user_id()) - $_SESSION['fb_amount'];
+        
+        update_user_meta( get_current_user_id(), 'FanBank', $amount);
+        unset($_SESSION['fb_amount']);
+      }
+    }
 
 
 
