@@ -11,12 +11,15 @@ class FB_Purchase extends Fanbank
 
   function __construct()
   {
-    session_start();
+	  if (session_status() == PHP_SESSION_NONE) {
+		  session_start();
+	  }
+
     
     //show message to add or remove rewards
     add_action( 'woocommerce_before_cart', array($this, 'phoen_rewpts_action_woocommerce_before_cal_table'), 10, 0);
 
-    if($_SESSION['fb_action'] == 'apply'){
+    if(isset($_SESSION['fb_action']) == 'apply'){
       add_action( 'woocommerce_cart_calculate_fees', array( $this , 'fb_woo_add_cart_fee' ), 10, 1);
     }
   
