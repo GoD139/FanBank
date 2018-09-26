@@ -9,9 +9,9 @@ Author URI: http://benjaminbehrens.com
 License: GPL2
 */
 
-if(!is_plugin_active( 'woocommerce/woocommerce.php' )) {
- exit();
-}
+// if(!is_plugin_active( 'woocommerce/woocommerce.php' )) {
+//  exit();
+// }
 
 
 include_once('class/controller.class.php');
